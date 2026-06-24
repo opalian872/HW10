@@ -11,6 +11,7 @@
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
 #include "TestActor.h" // TestActor 스폰용 헤더
+#include "CharacterData.h" // 도전과제용 헤더
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -65,6 +66,36 @@ void AJHEum_ModulePluginCharacter::BeginPlay()
 	FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 500.f;
 	FRotator SpawnRotation = GetActorRotation();
 	GetWorld()->SpawnActor<ATestActor>(SpawnLocation, SpawnRotation);
+	
+	// CharacterData 객체 생성 후 로그로 생성 확인
+	UCharacterData* CharacterData = NewObject<UCharacterData>(this);
+
+	if (CharacterData)
+	{
+		UE_LOG(
+			LogTemp,
+			Warning,
+			TEXT("CharacterData Created - Health: %.1f, Mana: %.1f"),
+			CharacterData->Health,
+			CharacterData->Mana
+		);
+
+		if (GEngine)
+		{
+			const FString Message = FString::Printf(
+				TEXT("CharacterData - Health: %.1f / Mana: %.1f"),
+				CharacterData->Health,
+				CharacterData->Mana
+			);
+
+			GEngine->AddOnScreenDebugMessage(
+				-1,
+				5.0f,
+				FColor::Cyan,
+				Message
+			);
+		}
+	}
 }
 
 //////////////////////////////////////////////////////////////////////////

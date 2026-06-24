@@ -50,3 +50,13 @@
 
 또한 다른 모듈의 클래스를 사용하려면 단순히 헤더를 include하는 것뿐 아니라, 사용하는 쪽 모듈의 `Build.cs`에 의존성을 추가해야 한다는 점을 확인했다.
 
+## 도전 기능 구현
+
+도전 과제는 `Temporary` 플러그인 내부에 `UObject` 기반 클래스인 `UCharacterData`를 추가하는 방식으로 구현했다.
+
+`UCharacterData`는 캐릭터 데이터 저장용 클래스로 만들었고, `Health`와 `Mana` 값을 가진다. 해당 클래스는 플러그인 모듈 밖의 메인 게임 모듈에서도 사용할 수 있어야 하므로 `TEMPORARY_API`를 붙여 외부 모듈에서 접근 가능하도록 했다.
+
+또한 `UCLASS(BlueprintType)`과 `UPROPERTY(EditAnywhere, BlueprintReadWrite)`를 사용해 C++뿐 아니라 언리얼 에디터와 블루프린트에서도 타입과 속성을 확인할 수 있도록 했다.
+
+메인 캐릭터의 `BeginPlay()`에서는 `NewObject<UCharacterData>(this)`를 통해 `UCharacterData` 객체를 생성하고, 로그와 화면 메시지로 `Health`, `Mana` 값을 출력했다. 이 과정을 통해 플러그인 내부에 만든 `UObject` 클래스를 프로젝트 메인 모듈에서 참조하고 사용할 수 있음을 확인했다.
+

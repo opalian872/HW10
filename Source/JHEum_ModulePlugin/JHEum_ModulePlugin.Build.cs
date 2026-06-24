@@ -10,7 +10,9 @@ public class JHEum_ModulePlugin : ModuleRules
 
 		PublicDependencyModuleNames.AddRange(new string[]
 		{
-			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", "Test" //Test 모듈 참조 추가
+			"Core", "CoreUObject", "Engine", "InputCore", "EnhancedInput", 
+			"Test", //Test 모듈 참조 추가
+			"Temporary" // 도전과제용 Temporary 모듈도 추가
 		});
 	}
 }
