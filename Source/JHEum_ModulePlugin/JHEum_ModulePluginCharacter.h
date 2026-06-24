@@ -46,6 +46,7 @@ class AJHEum_ModulePluginCharacter : public ACharacter
 
 public:
 	AJHEum_ModulePluginCharacter();
+	void BeginPlay() override;
 	
 
 protected:

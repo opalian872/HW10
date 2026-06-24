@@ -10,6 +10,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "TestActor.h" // TestActor 스폰용 헤더
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
 
@@ -52,6 +53,18 @@ AJHEum_ModulePluginCharacter::AJHEum_ModulePluginCharacter()
 
 	// Note: The skeletal mesh and anim blueprint references on the Mesh component (inherited from Character) 
 	// are set in the derived blueprint asset named ThirdPersonCharacter (to avoid direct content references in C++)
+	
+
+}
+
+void AJHEum_ModulePluginCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	
+	//메인 모듈 캐릭터가 TestActor 스폰하도록 Beginplay 내부에서 추가
+	FVector SpawnLocation = GetActorLocation() + GetActorForwardVector() * 500.f;
+	FRotator SpawnRotation = GetActorRotation();
+	GetWorld()->SpawnActor<ATestActor>(SpawnLocation, SpawnRotation);
 }
 
 //////////////////////////////////////////////////////////////////////////
